@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIFs Alternando</title>
+    <style>
+        /* Estilos para garantir que o GIF ocupe toda a tela */
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Evita barras de rolagem */
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black; /* Fundo preto para melhor visibilidade do GIF */
+        }
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            display: none; /* Inicialmente escondido */
+        }
+    </style>
+</head>
+<body>
+    <img id="gif1" src="gif1.gif" alt="GIF 1">
+    <img id="gif2" src="gif2.gif" alt="GIF 2">
+    <img id="gif3" src="gif3.gif" alt="GIF 3">
+    <img id="gif4" src="gif4.gif" alt="GIF 4">
+    <img id="gif5" src="gif5.gif" alt="GIF 5">
+
+    <script>
+        // Array com os IDs das imagens
+        const gifs = ['gif1', 'gif2', 'gif3', 'gif4', 'gif5'];
+        let currentIndex = 0;
+
+        // Função para mostrar o próximo GIF
+        function showNextGif() {
+            // Esconder todos os GIFs
+            gifs.forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            // Mostrar o GIF atual
+            document.getElementById(gifs[currentIndex]).style.display = 'block';
+            // Atualizar o índice do GIF
+            currentIndex = (currentIndex + 1) % gifs.length;
+        }
+
+        // Exibir o primeiro GIF e iniciar a rotação
+        showNextGif();
+        setInterval(showNextGif, 5000); // Trocar GIFs a cada 5 segundos
+    </script>
+</body>
+</html>
