@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Wallpaper - GIF Bounce</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+      height: 100%;
+      width: 100%;
+    }
+    #moving-image {
+      position: absolute;
+      width: 250px; /* Ajuste de tamanho */
+      height: auto; /* Mantém a proporção do GIF */
+      filter: hue-rotate(0deg);
+      transition: filter 0.3s, transform 0.3s; /* Transição suave */
+      pointer-events: none; /* Impede clique no GIF */
+      transform: scaleX(-1); /* Começa já invertido */
+    }
+  </style>
+</head>
+<body>
+  <img id="moving-image" src="C:\Users\Administrator\Downloads\GokuNuvemG.gif" alt="Moving GIF">
+
+  <script>
+    const img = document.getElementById('moving-image');
+    let x = Math.random() * (window.innerWidth - img.width);
+    let y = Math.random() * (window.innerHeight - img.height);
+    let speedX = 3;
+    let speedY = 3;
+    let hue = 0;
+    let flipped = true; // Começa já invertido
+
+    function changeColor() {
+      // hue = (hue + Math.floor(Math.random() * 360)) % 360;
+      // img.style.filter = `hue-rotate(${hue}deg)`;
+    }
+
+    function moveImage() {
+      x += speedX;
+      y += speedY;
+
+      if (x + img.width >= window.innerWidth || x <= 0) {
+        speedX = -speedX;
+        flipped = !flipped;
+        img.style.transform = `scaleX(${flipped ? -1 : 1})`;
+        changeColor();
+      }
+
+      if (y + img.height >= window.innerHeight || y <= 0) {
+        speedY = -speedY;
+        changeColor();
+      }
+
+      img.style.left = x + 'px';
+      img.style.top = y + 'px';
+
+      requestAnimationFrame(moveImage);
+    }
+
+    window.addEventListener('resize', () => {
+      if (x + img.width > window.innerWidth) x = window.innerWidth - img.width;
+      if (y + img.height > window.innerHeight) y = window.innerHeight - img.height;
+    });
+
+    moveImage();
+  </script>
+</body>
+</html>
